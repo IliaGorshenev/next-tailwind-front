@@ -266,3 +266,33 @@ interface SingleServiceApiResponse {
   data: DetailedService[];
   meta?: any;
 }
+
+
+
+export interface Work {
+  id: number;
+  documentId: string;
+  title: string;
+  before_after: boolean;
+  description: string;
+  additional_description: string | null;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  images?: {
+    before: string;
+    after: string;
+  };
+}
+
+export interface WorksResponse {
+  data: Work[];
+  meta: {
+    pagination: {
+      page: number;
+      pageSize: number;
+      pageCount: number;
+      total: number;
+    };
+  };
+}

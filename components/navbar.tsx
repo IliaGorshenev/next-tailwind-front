@@ -1,195 +1,110 @@
-// import {
-//   Navbar as HeroUINavbar,
-//   NavbarContent,
-//   NavbarMenu,
-//   NavbarMenuToggle,
-//   NavbarBrand,
-//   NavbarItem,
-//   NavbarMenuItem,
-// } from "@heroui/navbar";
-// import { Button } from "@heroui/button";
-// import { Kbd } from "@heroui/kbd";
-// import { Link } from "@heroui/link";
-// import { Input } from "@heroui/input";
-// import { link as linkStyles } from "@heroui/theme";
-// import NextLink from "next/link";
-// import clsx from "clsx";
-
-// import { siteConfig } from "@/config/site";
-// import { ThemeSwitch } from "@/components/theme-switch";
-// import {
-//   TwitterIcon,
-//   GithubIcon,
-//   DiscordIcon,
-//   HeartFilledIcon,
-//   SearchIcon,
-//   Logo,
-// } from "@/components/icons";
-
-// export const Navbar = () => {
-//   const searchInput = (
-//     <Input
-//       aria-label="Search"
-//       classNames={{
-//         inputWrapper: "bg-default-100",
-//         input: "text-sm",
-//       }}
-//       endContent={
-//         <Kbd className="hidden lg:inline-block" keys={["command"]}>
-//           K
-//         </Kbd>
-//       }
-//       labelPlacement="outside"
-//       placeholder="Search..."
-//       startContent={
-//         <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
-//       }
-//       type="search"
-//     />
-//   );
-
-//   return (
-//     <HeroUINavbar maxWidth="xl" position="sticky">
-//       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-//         <NavbarBrand as="li" className="gap-3 max-w-fit">
-//           <NextLink className="flex justify-start items-center gap-1" href="/">
-//             <Logo />
-//             <p className="font-bold text-inherit">ACME</p>
-//           </NextLink>
-//         </NavbarBrand>
-//         <ul className="hidden lg:flex gap-4 justify-start ml-2">
-//           {siteConfig.navItems.map((item) => (
-//             <NavbarItem key={item.href}>
-//               <NextLink
-//                 className={clsx(
-//                   linkStyles({ color: "foreground" }),
-//                   "data-[active=true]:text-primary data-[active=true]:font-medium",
-//                 )}
-//                 color="foreground"
-//                 href={item.href}
-//               >
-//                 {item.label}
-//               </NextLink>
-//             </NavbarItem>
-//           ))}
-//         </ul>
-//       </NavbarContent>
-
-//       <NavbarContent
-//         className="hidden sm:flex basis-1/5 sm:basis-full"
-//         justify="end"
-//       >
-//         <NavbarItem className="hidden sm:flex gap-2">
-//           <Link isExternal aria-label="Twitter" href={siteConfig.links.twitter}>
-//             <TwitterIcon className="text-default-500" />
-//           </Link>
-//           <Link isExternal aria-label="Discord" href={siteConfig.links.discord}>
-//             <DiscordIcon className="text-default-500" />
-//           </Link>
-//           <Link isExternal aria-label="Github" href={siteConfig.links.github}>
-//             <GithubIcon className="text-default-500" />
-//           </Link>
-//           <ThemeSwitch />
-//         </NavbarItem>
-//         <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
-//         <NavbarItem className="hidden md:flex">
-//           <Button
-//             isExternal
-//             as={Link}
-//             className="text-sm font-normal text-default-600 bg-default-100"
-//             href={siteConfig.links.sponsor}
-//             startContent={<HeartFilledIcon className="text-danger" />}
-//             variant="flat"
-//           >
-//             Sponsor
-//           </Button>
-//         </NavbarItem>
-//       </NavbarContent>
-
-//       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-//         <Link isExternal aria-label="Github" href={siteConfig.links.github}>
-//           <GithubIcon className="text-default-500" />
-//         </Link>
-//         <ThemeSwitch />
-//         <NavbarMenuToggle />
-//       </NavbarContent>
-
-//       <NavbarMenu>
-//         {searchInput}
-//         <div className="mx-4 mt-2 flex flex-col gap-2">
-//           {siteConfig.navMenuItems.map((item, index) => (
-//             <NavbarMenuItem key={`${item}-${index}`}>
-//               <Link
-//                 color={
-//                   index === 2
-//                     ? "primary"
-//                     : index === siteConfig.navMenuItems.length - 1
-//                       ? "danger"
-//                       : "foreground"
-//                 }
-//                 href="#"
-//                 size="lg"
-//               >
-//                 {item.label}
-//               </Link>
-//             </NavbarMenuItem>
-//           ))}
-//         </div>
-//       </NavbarMenu>
-//     </HeroUINavbar>
-//   );
-// };
-
-// src/components/navbar.tsx
-// This version uses components from the @heroui library
+'use client';
 
 import { Button } from '@heroui/button';
 import { Input } from '@heroui/input';
-import { Kbd } from '@heroui/kbd';
-import { Link } from '@heroui/link'; // Use HeroUI Link
-import {
-  Navbar as HeroUINavbar,
-  NavbarBrand, // Rename imported Navbar to avoid conflict
-  NavbarContent,
-  NavbarItem,
-  NavbarMenu,
-  NavbarMenuItem,
-  NavbarMenuToggle,
-} from '@heroui/navbar';
+import { Link } from '@heroui/link';
+import { Navbar as HeroUINavbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuItem, NavbarMenuToggle } from '@heroui/navbar';
 import { link as linkStyles } from '@heroui/theme';
 import clsx from 'clsx';
-import NextLink from 'next/link'; // Use NextLink for internal navigation
+import { useAtom, useAtomValue } from 'jotai';
+import NextLink from 'next/link';
+import { useEffect, useRef, useState } from 'react';
+
+// Import Jotai atoms
 
 // Assuming siteConfig and icons are correctly imported
-import { DiscordIcon, GithubIcon, HeartFilledIcon, Logo, SearchIcon, TwitterIcon } from '@/components/icons'; // Assuming these icon components exist
-import { ThemeSwitch } from '@/components/theme-switch'; // Assuming this component exists
+import { searchQueryAtom, searchResultsAtom } from '@/app/state/services';
+import { HeartFilledIcon, Logo, SearchIcon } from '@/components/icons';
+import { ThemeSwitch } from '@/components/theme-switch';
 import { siteConfig } from '@/config/site';
+import { TelegramIcon } from './icons/telegram';
 
 // Define the Navbar component
 export const Navbar = () => {
+  // Use Jotai for search state
+  const [searchQuery, setSearchQuery] = useAtom(searchQueryAtom);
+  const searchResults = useAtomValue(searchResultsAtom);
+
+  // Local state for UI
+  const [showResults, setShowResults] = useState(false);
+  const searchRef = useRef<HTMLDivElement>(null);
+
+  // Handle click outside to close search results
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setShowResults(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  // Handle search input change
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    setShowResults(true);
+  };
+
+  // Handle search form submission
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setShowResults(true);
+  };
+
   // Define the search input element using HeroUI Input
   const searchInput = (
-    <Input
-      aria-label="Search"
-      classNames={{
-        inputWrapper: 'bg-default-100', // Custom styling for input wrapper
-        input: 'text-sm', // Custom styling for input text
-      }}
-      // Keyboard shortcut display (visible on large screens)
-      endContent={
-        <Kbd className="hidden lg:inline-block" keys={['command']}>
-          K
-        </Kbd>
-      }
-      labelPlacement="outside"
-      placeholder="Search..."
-      // Search icon at the start of the input
-      startContent={<SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />}
-      type="search"
-    />
+    <div ref={searchRef} className="relative w-full">
+      <form onSubmit={handleSearchSubmit}>
+        <Input
+          aria-label="Поиск"
+          classNames={{
+            inputWrapper: 'bg-default-100', // Custom styling for input wrapper
+            input: 'text-sm', // Custom styling for input text
+          }}
+          labelPlacement="outside"
+          placeholder="Поиск услуг..."
+          startContent={<SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />}
+          type="search"
+          value={searchQuery}
+          onChange={handleSearchInputChange}
+        />
+      </form>
+
+      {/* Search Results Dropdown */}
+      {showResults && searchResults.length > 0 && (
+        <div className="absolute z-50 mt-1 w-full bg-white dark:bg-gray-800 shadow-lg rounded-md max-h-60 overflow-auto">
+          <ul className="py-1">
+            {searchResults.map((service) => (
+              <li key={service.id} className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+                <NextLink
+                  href={`/services/${service.slug}`}
+                  onClick={() => {
+                    setShowResults(false);
+                    setSearchQuery('');
+                  }}
+                  className="block">
+                  <div className="font-medium">{service.title}</div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400 truncate">
+                    {typeof service.description === 'string' ? service.description.substring(0, 60) + (service.description.length > 60 ? '...' : '') : 'Подробнее...'}
+                  </div>
+                </NextLink>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {showResults && searchQuery.trim() !== '' && searchResults.length === 0 && (
+        <div className="absolute z-50 mt-1 w-full bg-white dark:bg-gray-800 shadow-lg rounded-md p-4 text-center">Ничего не найдено</div>
+      )}
+    </div>
   );
 
-  // Return the Navbar structure using HeroUI components
+  // Rest of your component remains the same
   return (
     <HeroUINavbar maxWidth="xl" position="sticky">
       {/* Left section: Brand and main navigation links */}
@@ -197,29 +112,22 @@ export const Navbar = () => {
         {/* Brand Logo and Name */}
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
-            <Logo /> {/* Your Logo component */}
-            <p className="font-bold text-inherit">ACME</p> {/* Replace ACME with your site name */}
+            <Logo />
+            <p className="font-bold text-inherit">ACME</p>
           </NextLink>
         </NavbarBrand>
         {/* Desktop Navigation Links */}
         <ul className="hidden lg:flex gap-4 justify-start ml-2">
-          {siteConfig.navItems.map(
-            (
-              item, // Map through navItems from siteConfig
-            ) => (
-              <NavbarItem key={item.href}>
-                <NextLink
-                  className={clsx(
-                    linkStyles({ color: 'foreground' }), // Apply link styles
-                    'data-[active=true]:text-primary data-[active=true]:font-medium', // Active link styling
-                  )}
-                  color="foreground"
-                  href={item.href}>
-                  {item.label}
-                </NextLink>
-              </NavbarItem>
-            ),
-          )}
+          {siteConfig.navItems.map((item) => (
+            <NavbarItem key={item.href}>
+              <NextLink
+                className={clsx(linkStyles({ color: 'foreground' }), 'data-[active=true]:text-primary data-[active=true]:font-medium')}
+                color="foreground"
+                href={item.href}>
+                {item.label}
+              </NextLink>
+            </NavbarItem>
+          ))}
         </ul>
       </NavbarContent>
 
@@ -227,60 +135,40 @@ export const Navbar = () => {
       <NavbarContent className="hidden sm:flex basis-1/5 sm:basis-full" justify="end">
         {/* Social Links and Theme Switch */}
         <NavbarItem className="hidden sm:flex gap-2">
-          <Link isExternal aria-label="Twitter" href={siteConfig.links.twitter}>
-            <TwitterIcon className="text-default-500" />
+          <Link isExternal aria-label="Telegram" href={siteConfig.links.telegram || 'https://t.me/your_username'}>
+            <TelegramIcon className="text-default-500" />
           </Link>
-          <Link isExternal aria-label="Discord" href={siteConfig.links.discord}>
-            <DiscordIcon className="text-default-500" />
-          </Link>
-          <Link isExternal aria-label="Github" href={siteConfig.links.github}>
-            <GithubIcon className="text-default-500" />
-          </Link>
-          <ThemeSwitch /> {/* Your ThemeSwitch component */}
+          <ThemeSwitch />
         </NavbarItem>
         {/* Search Input (visible on large screens) */}
-        <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
+        <NavbarItem className="hidden lg:flex w-64">{searchInput}</NavbarItem>
         {/* Sponsor Button (visible on medium screens and up) */}
         <NavbarItem className="hidden md:flex">
           <Button
             isExternal
-            as={Link} // Use HeroUI Link component
+            as={Link}
             className="text-sm font-normal text-default-600 bg-default-100"
-            href={siteConfig.links.sponsor}
-            startContent={<HeartFilledIcon className="text-danger" />} // Sponsor icon
+            href={'#contact'}
+            startContent={<HeartFilledIcon className="text-danger" />}
             variant="flat">
-            Sponsor
+            Запись
           </Button>
         </NavbarItem>
       </NavbarContent>
 
-      {/* Mobile Right section: Github link, Theme switch, Menu toggle */}
+      {/* Mobile Right section: Theme switch, Menu toggle */}
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        <Link isExternal aria-label="Github" href={siteConfig.links.github}>
-          <GithubIcon className="text-default-500" />
-        </Link>
         <ThemeSwitch />
-        <NavbarMenuToggle /> {/* Hamburger menu button */}
+        <NavbarMenuToggle />
       </NavbarContent>
 
       {/* Mobile Menu Content */}
       <NavbarMenu>
-        {searchInput} {/* Search input inside mobile menu */}
+        <div className="mx-4 mt-2 mb-4">{searchInput}</div>
         <div className="mx-4 mt-2 flex flex-col gap-2">
-          {/* Map through mobile navigation items from siteConfig */}
           {siteConfig.navMenuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
-              <Link // Use HeroUI Link
-                color={
-                  // Dynamically set link color
-                  index === 2 // Example: Highlight the 3rd item
-                    ? 'primary'
-                    : index === siteConfig.navMenuItems.length - 1 // Example: Style the last item differently
-                      ? 'danger'
-                      : 'foreground'
-                }
-                href="#" // Replace with actual href if needed
-                size="lg">
+              <Link color={index === 2 ? 'primary' : index === siteConfig.navMenuItems.length - 1 ? 'danger' : 'foreground'} href="#" size="lg">
                 {item.label}
               </Link>
             </NavbarMenuItem>

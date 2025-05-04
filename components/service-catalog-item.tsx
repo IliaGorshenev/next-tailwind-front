@@ -34,16 +34,15 @@ export function ServiceCatalogItem({ service }: ServiceCatalogItemProps) {
   return (
     <Link
       key={service.id}
-      href={`/services/${service.slug}`} // Ensure this route exists
+      href={`/services/${service.slug}`}
       className="group flex items-center p-3 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors duration-150 ease-in-out">
       <div className="flex-shrink-0 mr-4">
         {thumbnailUrl ? (
-          // Using standard img tag here for simplicity with onError, adapt if HeroUI Image handles it
           <img
             src={thumbnailUrl}
             alt={`Миниатюра для ${service.title}`}
             className="w-12 h-12 rounded-full object-cover border border-gray-200 dark:border-gray-600"
-            onError={(e) => (e.currentTarget.src = '/images/placeholder-thumbnail.png')} // Basic fallback
+            onError={(e) => (e.currentTarget.src = '/images/placeholder-thumbnail.png')}
           />
         ) : (
           <div className="w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900/40 flex items-center justify-center border border-primary-200 dark:border-primary-700">

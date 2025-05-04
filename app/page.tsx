@@ -3,6 +3,9 @@ import { button as buttonStyles } from '@heroui/theme'; // Keep buttonStyles if 
 import Image from 'next/image'; // Keep Next/Image for optimized images
 
 import { subtitle, title } from '@/components/primitives'; // Keep custom primitives if used in new/existing sections
+import Works from '@/components/works';
+import { Service } from './state/services';
+import { ServicesInitializer } from './state/services-initializer';
 
 // This function gets called at build time and also on revalidation (Copied from old code)
 async function getFeaturedServices(): Promise<{
@@ -37,10 +40,6 @@ async function getFeaturedServices(): Promise<{
     }
 
     const data: any = await response.json();
-
-    // Debugging: Log the raw data received
-    // console.log('Raw API Data:', JSON.stringify(data, null, 2));
-
     if (!data || !Array.isArray(data.data)) {
       console.error('Invalid data structure received from API:', data);
 
@@ -101,9 +100,45 @@ export default async function Home() {
   const { services, error } = await getFeaturedServices();
   const API_BASE_URL = process.env.API_URL || 'https://startrixbot.ru'; // Ensure consistency
 
+  let allServices: Service[] = [];
+  try {
+    const apiUrl = process.env.API_URL || 'https://startrixbot.ru';
+    const response = await fetch(`${apiUrl}/api/uslugas?populate=*`, {
+      next: { revalidate: 3600 },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      if (data && Array.isArray(data.data)) {
+        allServices = data.data.map((item: any): Service => {
+          const imageDataArray = item.image;
+          let imageArray: any[] = [];
+
+          if (Array.isArray(imageDataArray) && imageDataArray.length > 0) {
+            imageArray = imageDataArray.map((img: any) => ({
+              url: img?.url || '',
+              formats: img?.formats || {},
+            }));
+          }
+
+          return {
+            id: item.id,
+            title: item.title || 'Без названия',
+            description: typeof item.description === 'string' ? item.description : 'Подробности смотрите на странице услуги.',
+            slug: item.slug || `service-${item.id}`,
+            image: imageArray,
+          };
+        });
+      }
+    }
+  } catch (error) {
+    console.error('Error fetching all services for search:', error);
+  }
+
   return (
     <>
       {/* About Me Section */}
+      <ServicesInitializer initialServices={allServices} />
       {/* <section className="py-16 md:py-20 bg-gradient-to-r from-orange-50/80 to-white text-content1-foreground border-l border-r border-orange-100 dark:border-l-0 dark:border-r-0 dark:bg-gradient-to-r dark:from-gray-700/90 dark:to-gray-800 rounded-lg shadow-md"> */}
       <section className="py-16 md:py-20 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-orange-50 via-orange-50/70 to-white text-content1-foreground dark:border-none dark:bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] dark:from-gray-900 dark:via-gray-950 dark:to-gray-1000 rounded-lg">
         <div className="container mx-auto px-4 text-center">
@@ -163,7 +198,7 @@ export default async function Home() {
           <h2
             className={title({
               size: 'md',
-              class: 'mb-4 text-gray-800 dark:text-white',
+              class: 'mb-8 text-gray-800 dark:text-white',
             })}>
             Мой подход к красоте
           </h2>
@@ -268,6 +303,11 @@ export default async function Home() {
               </Link>
             </div>
           )}
+        </div>
+      </section>
+      <section className="py-8 md:py-12  text-content1-foreground  dark:border-none dark:bg-gradient-to-br dark:from-gray-950 dark:via-gray-950 dark:to-gray-900 rounded-lg  ">
+        <div className="container mx-auto px-4">
+          <Works />
         </div>
       </section>
 
