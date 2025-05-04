@@ -1,10 +1,9 @@
 'use client';
-
-import { Service } from '@/app/types/types';
 import { Card, Pagination } from '@heroui/react';
 import { useState } from 'react';
 
 // Function to get image URL (same as in your main file)
+// @ts-ignore
 function getImageUrl(imageData: any[] | undefined | null, format: string = 'medium'): string | null {
   // Implementation same as before
 }

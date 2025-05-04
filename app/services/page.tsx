@@ -10,7 +10,8 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://startrixbo
 const API_TOKEN = process.env.STRAPI_API_TOKEN;
 
 // --- ISR Revalidation ---
-export const revalidate = 3600;
+
+export const revalidate = 600; // Revalidate every 10 minutes
 
 // --- Helper function to group services (can stay in Server Component) ---
 function groupServicesByFirstLetter(services: Service[]) {
@@ -45,7 +46,7 @@ export default async function ServicesPage() {
 
     const response = await fetch(`${API_BASE_URL}/api/uslugas?populate=*`, {
       headers: headers,
-      next: { revalidate },
+      next: { revalidate: 600 },
     });
     if (!response.ok) throw new Error(`Не удалось загрузить услуги (Статус: ${response.status})`);
     const data: ApiResponse = await response.json();
@@ -62,15 +63,20 @@ export default async function ServicesPage() {
         description: descriptionText,
         slug: item.slug || `service-${item.id}`,
         image: Array.isArray(item.image)
-          ? item.image.map((img) => ({
-              url: img.url || '',
-              formats: {
-                thumbnail: img.formats?.thumbnail ? { url: img.formats.thumbnail.url } : undefined,
-                small: img.formats?.small ? { url: img.formats.small.url } : undefined,
-                medium: img.formats?.medium ? { url: img.formats.medium.url } : undefined,
-                large: img.formats?.large ? { url: img.formats.large.url } : undefined,
-              },
-            }))
+          ? item.image.map(
+              (
+                // @ts-ignore
+                img,
+              ) => ({
+                url: img.url || '',
+                formats: {
+                  thumbnail: img.formats?.thumbnail ? { url: img.formats.thumbnail.url } : undefined,
+                  small: img.formats?.small ? { url: img.formats.small.url } : undefined,
+                  medium: img.formats?.medium ? { url: img.formats.medium.url } : undefined,
+                  large: img.formats?.large ? { url: img.formats.large.url } : undefined,
+                },
+              }),
+            )
           : [],
       };
     });

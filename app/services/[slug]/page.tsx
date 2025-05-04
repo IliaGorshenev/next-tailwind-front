@@ -13,7 +13,8 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://startrixbo
 const API_TOKEN = process.env.STRAPI_API_TOKEN;
 
 // --- ISR Настройки ---
-export const revalidate = 3600; // Ревалидация каждый час
+// Change this line from 3600 to 600
+export const revalidate = 600; // Revalidate every 10 minutes
 
 // --- Функция для генерации статических путей (опционально, для ISR) ---
 export async function generateStaticParams() {
@@ -61,9 +62,10 @@ async function getServiceData(slug: string): Promise<DetailedService | null> {
     const headers: HeadersInit = { 'Content-Type': 'application/json' };
     if (API_TOKEN) headers['Authorization'] = `Bearer ${API_TOKEN}`;
 
+    // In your getServiceData function, update the fetch options:
     const response = await fetch(url, {
       headers: headers,
-      next: { revalidate }, // Используем ревалидацию
+      next: { revalidate: 600 }, // Use 600 seconds (10 minutes) instead of the variable
     });
 
     if (!response.ok) {
@@ -94,27 +96,27 @@ async function getServiceData(slug: string): Promise<DetailedService | null> {
   }
 }
 
-// --- Компонент Страницы Услуги (Серверный) ---
-interface ServicePageProps {
+interface ServiceDetailPageProps {
   params: {
     slug: string;
   };
+  searchParams?: { [key: string]: string | string[] | undefined };
 }
-
-export default async function ServiceDetailPage({ params }: ServicePageProps) {
-  // Await the params object before destructuring
-  const resolvedParams = await params;
-  const { slug } = resolvedParams;
+export default async function Page({ params }: { params: any }) {
+  console.log('Page params:', params); // Debug log
+  const { slug } = params;
+  console.log('Extracted slug:', slug); // Debug log
 
   const service = await getServiceData(slug);
+  console.log('Service data fetched:', !!service); // Debug log
 
   // Если услуга не найдена, показать страницу 404
-  if (!service) {
+  if (!service || service === null) {
     notFound();
   }
 
   // Функция для получения URL изображения (можно вынести в хелперы)
-  function getImageUrl(imageData: DetailedService['image'], format: 'thumbnail' | 'small' | 'medium' | 'large' = 'large'): string | null {
+  function getImageUrl(imageData: any['image'], format: 'thumbnail' | 'small' | 'medium' | 'large' = 'large'): string | null {
     if (!imageData || imageData.length === 0) return null;
     const image = imageData[0];
     if (!image) return null;
