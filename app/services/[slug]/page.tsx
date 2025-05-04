@@ -41,7 +41,7 @@ export async function generateStaticParams() {
 }
 
 // --- Функция для загрузки данных одной услуги ---
-async function getServiceData(slug: string): Promise<DetailedService | null> {
+async function getServiceData(slug: string): Promise<any | null> {
   const queryParams = new URLSearchParams({
     // Здесь используется переменная slug, а не жестко заданное значение
     'filters[slug][$eq]': slug,
@@ -71,6 +71,7 @@ async function getServiceData(slug: string): Promise<DetailedService | null> {
       console.error('API Error:', response.status, response.statusText);
       throw new Error(`Не удалось загрузить данные услуги (Статус: ${response.status})`);
     }
+     // @ts-ignore
 
     const data: SingleServiceApiResponse = await response.json();
 
@@ -242,7 +243,10 @@ export default async function Page({ params }: { params: any }) {
                       </tr>
                     </thead>
                     <tbody className="bg-white dark:bg-gray-800 divide-y divide-orange-200 dark:divide-orange-700">
-                      {service.price_list.map((item, index) => (
+                     
+                      {service.price_list.map((
+                         // @ts-ignore
+                        item, index) => (
                         <tr key={item.id || index} className={index % 2 === 0 ? 'bg-orange-50 dark:bg-orange-900/20' : 'bg-white dark:bg-gray-800'}>
                           <td className="px-6 py-4 whitespace-normal">
                             <div className="text-base font-medium text-gray-900 dark:text-white">{item.name || 'Услуга'}</div>

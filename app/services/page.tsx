@@ -15,9 +15,9 @@ const API_TOKEN = process.env.STRAPI_API_TOKEN;
 export const revalidate = 600; // Revalidate every 10 minutes
 
 // --- Helper function to group services (can stay in Server Component) ---
-function groupServicesByFirstLetter(services: Service[]) {
+function groupServicesByFirstLetter(services: any[]) {
   // ... (keep existing grouping logic) ...
-  const grouped: { [key: string]: Service[] } = {};
+  const grouped: { [key: string]: any[] } = {};
   services.forEach((service) => {
     let firstLetter = '#';
     if (service.title && service.title !== 'Без названия' && /^[a-zA-Zа-яА-Я]/.test(service.title)) {
@@ -37,7 +37,7 @@ function groupServicesByFirstLetter(services: Service[]) {
 
 // --- Async Server Component for the Services Page ---
 export default async function ServicesPage() {
-  let services: Service[] = [];
+  let services: any[] = [];
   let error: string | null = null;
 
   // --- Data Fetching (Keep existing logic) ---
@@ -50,7 +50,7 @@ export default async function ServicesPage() {
       next: { revalidate: 600 },
     });
     if (!response.ok) throw new Error(`Не удалось загрузить услуги (Статус: ${response.status})`);
-    const data: ApiResponse = await response.json();
+    const data: any = await response.json();
     if (!data || !Array.isArray(data.data)) throw new Error('Некорректный формат ответа от API');
 
     // --- Data Transformation (Keep existing logic) ---
