@@ -4,7 +4,7 @@ import { Card, CardBody, CardFooter, CardHeader } from '@heroui/react';
 import Link from 'next/link';
 
 // Helper function needed by this client component (or import it)
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://91.197.98.34:8000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://startrixbot.ru';
 
 // You might need to duplicate/import getImageUrl or pass the URL directly
 function getImageUrl(imageData: Service['image'] | undefined | null, format: 'thumbnail' | 'small' | 'medium' | 'large' | 'original' = 'medium'): string | null {

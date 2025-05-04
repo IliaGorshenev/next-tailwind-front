@@ -10,7 +10,7 @@ async function getFeaturedServices(): Promise<{
   error: string | null;
 }> {
   // Use environment variable for API URL if possible
-  const apiUrl = process.env.API_URL || 'http://91.197.98.34:8000'; // Example: Use env var
+  const apiUrl = process.env.API_URL || 'https://startrixbot.ru'; // Example: Use env var
   const endpoint = `${apiUrl}/api/uslugas?populate=*`;
 
   console.log(`Workspaceing services from: ${endpoint}`); // Add logging for debugging
@@ -48,36 +48,39 @@ async function getFeaturedServices(): Promise<{
     }
 
     // Transform the data to match our Service type
-    const services = data.data.map((
-      // @ts-ignore
-      item): any => {
-      // Check if attributes exist, otherwise use item directly (adjust based on actual API response)
-      const serviceData = item.attributes || item;
+    const services = data.data.map(
+      (
+        // @ts-ignore
+        item,
+      ): any => {
+        // Check if attributes exist, otherwise use item directly (adjust based on actual API response)
+        const serviceData = item.attributes || item;
 
-      // Handle potentially missing image data gracefully (Strapi v4 structure)
-      const imageDataArray = item.image;
-      let imageArray: any[] = [];
+        // Handle potentially missing image data gracefully (Strapi v4 structure)
+        const imageDataArray = item.image;
+        let imageArray: any[] = [];
 
-      if (Array.isArray(imageDataArray) && imageDataArray.length > 0) {
-        imageArray = imageDataArray.map((img: any) => {
-          // img - это объект изображения
-          // Напрямую берем url и formats из объекта img
-          return {
-            url: img?.url || '', // Добавляем проверку на существование img.url
-            formats: img?.formats || {}, // Добавляем проверку на существование img.formats
-          };
-        });
-      }
+        if (Array.isArray(imageDataArray) && imageDataArray.length > 0) {
+          imageArray = imageDataArray.map((img: any) => {
+            // img - это объект изображения
+            // Напрямую берем url и formats из объекта img
+            return {
+              url: img?.url || '', // Добавляем проверку на существование img.url
+              formats: img?.formats || {}, // Добавляем проверку на существование img.formats
+            };
+          });
+        }
 
-      return {
-        id: item.id,
-        title: serviceData.title || 'Без названия',
-        // Limit description length for display card
-        description: (serviceData.description || '').substring(0, 100) + ((serviceData.description || '').length > 100 ? '...' : ''),
-        slug: serviceData.slug || `service-${item.id}`,
-        image: imageArray, // Use the processed image array
-      };
-    });
+        return {
+          id: item.id,
+          title: serviceData.title || 'Без названия',
+          // Limit description length for display card
+          description: (serviceData.description || '').substring(0, 100) + ((serviceData.description || '').length > 100 ? '...' : ''),
+          slug: serviceData.slug || `service-${item.id}`,
+          image: imageArray, // Use the processed image array
+        };
+      },
+    );
 
     // Limit to 3 services for the featured section
     return { services: services.slice(0, 3), error: null };
@@ -96,7 +99,7 @@ async function getFeaturedServices(): Promise<{
 export default async function Home() {
   // Fetch services when the page component renders (or at build time/revalidation)
   const { services, error } = await getFeaturedServices();
-  const API_BASE_URL = process.env.API_URL || 'http://91.197.98.34:8000'; // Ensure consistency
+  const API_BASE_URL = process.env.API_URL || 'https://startrixbot.ru'; // Ensure consistency
 
   return (
     <>

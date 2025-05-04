@@ -9,7 +9,7 @@ import { RichTextRenderer } from '@/components/rich-text-renderer';
 import Link from 'next/link';
 
 // --- Переменные окружения ---
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://91.197.98.34:8000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://startrixbot.ru';
 const API_TOKEN = process.env.STRAPI_API_TOKEN;
 
 // --- ISR Настройки ---
@@ -143,7 +143,6 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
               style={{ objectFit: 'cover' }} // Масштабирует изображение
               priority // Загружать в первую очередь
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1000px"
-              
             />
           </div>
         )}

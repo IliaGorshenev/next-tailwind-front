@@ -6,7 +6,7 @@ import { ServiceCatalogItem } from '@/components/service-catalog-item';
 // import { ServicesPagination } from '@/components/ServicesPagination'; // Keep if you have this client component
 
 // --- Environment Variables ---
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://91.197.98.34:8000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://startrixbot.ru';
 const API_TOKEN = process.env.STRAPI_API_TOKEN;
 
 // --- ISR Revalidation ---
