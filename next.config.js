@@ -11,6 +11,12 @@ const nextConfig = {
         port: '8000', // Укажите порт, если он есть в URL
         pathname: '/uploads/**', // Можно указать путь, например, чтобы разрешить только папку /uploads/**
       },
+      {
+        protocol: 'https',
+        hostname: 'startrixbot.ru',
+        port: '', // Пусто, если стандартный порт (80 или 443)
+        pathname: '/uploads/**',
+      },
       // Можете добавить сюда другие домены, если нужно
       // {
       //   protocol: 'https',
