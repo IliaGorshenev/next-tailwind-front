@@ -1,5 +1,6 @@
 'use client'; // <-- Mark as a Client Component
 
+import { Service } from '@/app/state/services';
 import { Card, CardBody, CardFooter, CardHeader } from '@heroui/react';
 import Link from 'next/link';
 

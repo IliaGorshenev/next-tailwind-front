@@ -1,4 +1,5 @@
 'use client';
+import { Service } from '@/app/state/services';
 import { Card, Pagination } from '@heroui/react';
 import { useState } from 'react';
 

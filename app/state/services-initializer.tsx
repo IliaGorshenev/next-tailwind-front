@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useSetAtom } from 'jotai';
-import { servicesAtom } from './services';
+import { Service, servicesAtom } from './services';
 
 
 interface ServicesInitializerProps {

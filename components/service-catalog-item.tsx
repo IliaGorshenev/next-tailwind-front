@@ -1,5 +1,6 @@
 'use client'; // <-- Mark as a Client Component
 
+import { Service } from '@/app/state/services';
 import { ChevronIcon } from '@heroui/shared-icons';
 import Link from 'next/link';
 
