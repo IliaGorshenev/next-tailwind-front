@@ -104,7 +104,8 @@ export default async function Home() {
   return (
     <>
       {/* About Me Section */}
-      <section className="py-16 md:py-20 bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-gray-800">
+      {/* <section className="py-16 md:py-20 bg-gradient-to-r from-orange-50/80 to-white text-content1-foreground border-l border-r border-orange-100 dark:border-l-0 dark:border-r-0 dark:bg-gradient-to-r dark:from-gray-700/90 dark:to-gray-800 rounded-lg shadow-md"> */}
+      <section className="py-16 md:py-20 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-orange-50 via-orange-50/70 to-white text-content1-foreground dark:border-none dark:bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] dark:from-gray-900 dark:via-gray-950 dark:to-gray-1000 rounded-lg">
         <div className="container mx-auto px-4 text-center">
           <h1
             className={title({
@@ -156,7 +157,8 @@ export default async function Home() {
       </section>
 
       {/* My Philosophy/Approach Section */}
-      <section className="py-16 md:py-20 bg-white dark:bg-gray-900">
+
+      <section className="py-16 md:py-20  text-content1-foreground  dark:border-none dark:bg-gradient-to-br dark:from-gray-950 dark:via-gray-950 dark:to-gray-900 rounded-lg  ">
         <div className="container mx-auto px-4 text-center">
           <h2
             className={title({
@@ -181,7 +183,7 @@ export default async function Home() {
       </section>
 
       {/* Featured Services Section (Kept from original) */}
-      <section className="py-16 md:py-20 bg-gray-50 dark:bg-gray-800">
+      <section className="py-16 md:py-20 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-orange-50 via-orange-50/70 to-white text-content1-foreground dark:border-none dark:bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))]  dark:from-gray-900 dark:via-gray-950 dark:to-gray-1000  rounded-lg">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-10 text-gray-900 dark:text-white">Популярные услуги</h2>
           {error ? (
@@ -255,7 +257,7 @@ export default async function Home() {
             <div className="text-center mt-12">
               <Link
                 className={buttonStyles({
-                  color: 'secondary',
+                  color: 'danger',
                   variant: 'ghost',
                   radius: 'full',
                   size: 'lg',
