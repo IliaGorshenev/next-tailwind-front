@@ -56,9 +56,9 @@ export function ServiceCard({ service }: ServiceCardProps) {
       </CardBody>
       <CardFooter className="bg-gray-50 dark:bg-gray-700/50">
         <Link
-          href={`/services/${service.slug}`} // Ensure this route exists
-          className="w-full inline-flex justify-center items-center px-4 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/30 rounded-md hover:bg-primary-100 dark:hover:bg-primary-900/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 transition-colors">
-          Подробнее
+          href={`/services/${service.slug}`}
+          className="group w-full inline-flex justify-center items-center px-4 py-2.5 text-sm font-medium text-gray-800 bg-[#FFCCC5] hover:bg-[#FFB8AE] rounded-md shadow-sm hover:shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#FFCCC5] focus:ring-opacity-50 dark:text-gray-800">
+          Подробнее <span className="ml-1 transform transition-transform duration-200 group-hover:scale-125">→</span>
         </Link>
       </CardFooter>
     </Card>

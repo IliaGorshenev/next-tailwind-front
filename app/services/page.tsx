@@ -92,15 +92,15 @@ export default async function ServicesPage() {
 
   // --- Render JSX ---
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <div className="min-h-screen">
       {/* Header (Keep existing) */}
-      <header className="bg-primary-600 text-white py-6 shadow-md">
+      {/* <header className="bg-orange-50 text-black dark:bg-gray-900 dark:text-white py-6 rounded-md mb-8">
         <div className="container mx-auto px-4">
           <h1 className="text-3xl font-bold">Наши услуги</h1>
         </div>
-      </header>
+      </header> */}
 
-      <main className="container mx-auto px-4 py-12">
+      <main className="container mx-auto px-4 py-12 md:py-16 bg-orange-50 text-black dark:bg-gray-900 dark:text-white py-6 rounded-md mb-16">
         {/* Error Display (Keep existing) */}
         {error && (
           <div
@@ -116,8 +116,9 @@ export default async function ServicesPage() {
         {!error && services.length > 0 && (
           <>
             {/* Card View Section - USE CLIENT COMPONENT */}
+
             <section className="mb-16">
-              <h2 className="text-2xl font-bold mb-8 text-gray-800 dark:text-white">Все услуги</h2>
+              <h1 className="text-3xl font-bold mb-8 text-gray-800 dark:text-white">Все услуги</h1>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {paginatedServices.map((service) => (
                   // Render the client component, passing data as props
@@ -130,7 +131,7 @@ export default async function ServicesPage() {
 
             {/* Catalog View Section - USE CLIENT COMPONENT */}
             <section className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 md:p-8 shadow-sm bg-white dark:bg-gray-800">
-              <h2 className="text-2xl font-bold mb-8 text-gray-800 dark:text-white">Каталог услуг</h2>
+            <h2 className="text-2xl font-bold mb-8 text-gray-800 center dark:text-white">Каталог услуг</h2>
               <div className="space-y-8">
                 {groupedServices.map((group) => (
                   <div key={group.letter}>
