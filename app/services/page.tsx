@@ -1,3 +1,4 @@
+import ContactForm from '@/components/feedback';
 import { ServiceCard } from '@/components/service-card';
 import { ServiceCatalogItem } from '@/components/service-catalog-item';
 
@@ -148,6 +149,7 @@ export default async function ServicesPage() {
             </section>
           </>
         )}
+        <ContactForm />
       </main>
 
       {/* Footer (Keep existing) */}

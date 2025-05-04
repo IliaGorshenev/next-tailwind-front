@@ -2,6 +2,7 @@ import { Link } from '@heroui/link'; // Keep Link if used for buttons/navigation
 import { button as buttonStyles } from '@heroui/theme'; // Keep buttonStyles if used
 import Image from 'next/image'; // Keep Next/Image for optimized images
 
+import ContactForm from '@/components/feedback';
 import { subtitle, title } from '@/components/primitives'; // Keep custom primitives if used in new/existing sections
 import Works from '@/components/works';
 import { Service } from './state/services';
@@ -145,17 +146,27 @@ export default async function Home() {
           <h1
             className={title({
               size: 'lg',
-              class: 'mb-4 text-gray-900 dark:text-white',
-            })}>
+              class: 'mb-4 text-gray-900 dark:text-white animate-fade-in',
+            })}
+            style={{
+              opacity: 0,
+              animation: 'fadeIn 0.8s ease-out forwards',
+            }}>
             Добро пожаловать!
           </h1>
           <div className="max-w-3xl mx-auto flex flex-col items-center">
-            {/* Profile Picture */}
-            <div className="mb-6">
+            {/* Profile Picture with animation */}
+            <div
+              className="mb-6 animate-fade-in-up"
+              style={{
+                opacity: 0,
+                animation: 'fadeInUp 0.8s ease-out forwards',
+                animationDelay: '0.2s',
+              }}>
               <Image
                 priority // Load profile picture early
                 alt="Фото косметолога Ольга" // *** REPLACE with your name ***
-                className="rounded-full object-cover shadow-lg border-4 border-white dark:border-gray-700"
+                className="rounded-full object-cover shadow-lg border-4 border-white dark:border-gray-700 hover:scale-105 transition-transform duration-300"
                 height={180}
                 src="/olga.jpg" // *** REPLACE with your actual profile picture path ***
                 width={180}
@@ -165,16 +176,33 @@ export default async function Home() {
             <h2
               className={subtitle({
                 class: 'text-xl md:text-2xl mb-6 text-gray-700 dark:text-gray-300',
-              })}>
+              })}
+              style={{
+                opacity: 0,
+                animation: 'fadeInUp 0.8s ease-out forwards',
+                animationDelay: '0.4s',
+              }}>
               Меня зовут <span className="font-semibold text-primary">Ольга</span>, ваш эксперт-косметолог
             </h2>
-            <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+            <p
+              className="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed"
+              style={{
+                opacity: 0,
+                animation: 'fadeInUp 0.8s ease-out forwards',
+                animationDelay: '0.6s',
+              }}>
               Я посвятила свою карьеру искусству и науке ухода за кожей. Моя миссия — помочь вам обрести здоровую, сияющую кожу и повысить вашу уверенность в себе с
               помощью персонализированных процедур и профессиональных советов. Имея <span className="font-medium">5</span> лет опыта {/* *** REPLACE [X] *** */} и страсть
               к постоянному обучению, я предлагаю самые современные и эффективные решения для ваших нужд.
             </p>
-            {/* Optional: Call to action button */}
-            <div className="mt-8">
+            {/* Optional: Call to action button with animation */}
+            <div
+              className="mt-8"
+              style={{
+                opacity: 0,
+                animation: 'fadeInUp 0.8s ease-out forwards',
+                animationDelay: '0.8s',
+              }}>
               <Link
                 className={buttonStyles({
                   color: 'primary',
@@ -190,30 +218,94 @@ export default async function Home() {
           </div>
         </div>
       </section>
-
       {/* My Philosophy/Approach Section */}
 
-      <section className="py-16 md:py-20  text-content1-foreground  dark:border-none dark:bg-gradient-to-br dark:from-gray-950 dark:via-gray-950 dark:to-gray-900 rounded-lg  ">
-        <div className="container mx-auto px-4 text-center">
-          <h2
-            className={title({
-              size: 'md',
-              class: 'mb-8 text-gray-800 dark:text-white',
-            })}>
-            Мой подход к красоте
-          </h2>
-          <p
-            className={subtitle({
-              class: 'max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-400 leading-relaxed',
-            })}>
-            Я верю, что истинная красота идет изнутри и отражается в здоровье вашей кожи. Моя философия основана на целостном подходе, сочетании передовых технологий с
-            проверенными методиками и качественными продуктами. Каждая процедура подбирается индивидуально, учитывая ваши уникальные особенности и цели.
-          </p>
-          {/* Optional: Add key points or icons representing your philosophy */}
-          {/*
-             <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-               </div>
-             */}
+      <section className="py-16 md:py-20 text-content1-foreground dark:border-none dark:bg-gradient-to-br dark:from-gray-950 dark:via-gray-950 dark:to-gray-900 rounded-lg">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-10 text-gray-900 dark:text-white">Мой подход к красоте</h2>
+
+          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+            {/* Left side video instead of image */}
+            <div
+              className="w-full md:w-1/2 relative animate-fade-in-left"
+              style={{
+                opacity: 0,
+                animation: 'fadeInLeft 0.8s ease-out forwards',
+                animationDelay: '0.2s',
+              }}>
+              <div className="relative h-80 md:h-[500px] w-full rounded-lg overflow-hidden shadow-lg">
+                <video
+                  src="/olga_action.mp4"
+                  className="absolute inset-0 w-full h-full object-cover"
+                  style={{ objectPosition: '50% 20%' }}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                />
+              </div>
+            </div>
+
+            {/* Right side text content */}
+            <div
+              className="w-full md:w-1/2 animate-fade-in-right"
+              style={{
+                opacity: 0,
+                animation: 'fadeInRight 0.8s ease-out forwards',
+                animationDelay: '0.4s',
+              }}>
+              <div className="text-left">
+                <h3 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-white">Индивидуальный подход к каждому клиенту</h3>
+                <p className="text-lg text-gray-600 dark:text-gray-400 mb-6">
+                  Я верю, что истинная красота идет изнутри и отражается в здоровье вашей кожи. Моя философия основана на целостном подходе, сочетании передовых
+                  технологий с проверенными методиками и качественными продуктами.
+                </p>
+                <p className="text-lg text-gray-600 dark:text-gray-400">
+                  Каждая процедура подбирается индивидуально, учитывая ваши уникальные особенности и цели. Я стремлюсь не только решить текущие проблемы, но и
+                  предотвратить появление новых.
+                </p>
+
+                {/* Key principles with icons */}
+                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div
+                    className="flex items-start space-x-3 animate-fade-up"
+                    style={{
+                      opacity: 0,
+                      animation: 'fadeUp 0.6s ease-out forwards',
+                      animationDelay: '0.6s',
+                    }}>
+                    <div className="text-primary dark:text-primary-400 mt-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-800 dark:text-white">Безопасность</h4>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Использую только проверенные методики и сертифицированные продукты</p>
+                    </div>
+                  </div>
+
+                  <div
+                    className="flex items-start space-x-3 animate-fade-up"
+                    style={{
+                      opacity: 0,
+                      animation: 'fadeUp 0.6s ease-out forwards',
+                      animationDelay: '0.8s',
+                    }}>
+                    <div className="text-primary dark:text-primary-400 mt-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-800 dark:text-white">Эффективность</h4>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Гарантирую видимый результат после каждой процедуры</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -310,6 +402,7 @@ export default async function Home() {
           <Works />
         </div>
       </section>
+      <ContactForm />
 
       {/* You can add more sections here, e.g., Testimonials, Contact Form */}
     </>

@@ -2,11 +2,12 @@ import '@/styles/globals.css';
 import clsx from 'clsx';
 import { Metadata, Viewport } from 'next';
 
-import { Providers } from './providers';
-
+import Footer from '@/components/footer';
 import { Navbar } from '@/components/navbar';
 import { fontSans } from '@/config/fonts';
 import { siteConfig } from '@/config/site';
+import './globals.css';
+import { Providers } from './providers';
 
 export const metadata: Metadata = {
   title: {
@@ -35,7 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="relative flex flex-col h-screen">
             <Navbar />
             <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">{children}</main>
-            <footer className="w-full flex items-center justify-center py-3 bg-background-secondary"></footer>
+            <Footer />
           </div>
         </Providers>
       </body>
