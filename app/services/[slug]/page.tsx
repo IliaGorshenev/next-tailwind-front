@@ -95,7 +95,6 @@ interface ServiceDetailPageProps {
   params: {
     slug: string;
   };
-  searchParams?: { [key: string]: string | string[] | undefined };
 }
 export default async function Page({ params }: { params: any }) {
   console.log('Page params:', params); // Debug log
