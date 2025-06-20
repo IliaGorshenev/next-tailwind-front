@@ -14,7 +14,7 @@ async function getFeaturedServices(): Promise<{
   error: string | null;
 }> {
   // Use environment variable for API URL if possible
-  const apiUrl = process.env.API_URL || 'https://startrixbot.ru'; // Example: Use env var
+  const apiUrl = process.env.API_URL || 'https://admin.spb-cosmetologist.ru'; // Example: Use env var
   const endpoint = `${apiUrl}/api/uslugas?populate=*`;
 
   console.log(`Workspaceing services from: ${endpoint}`); // Add logging for debugging
@@ -99,11 +99,11 @@ async function getFeaturedServices(): Promise<{
 export default async function Home() {
   // Fetch services when the page component renders (or at build time/revalidation)
   const { services, error } = await getFeaturedServices();
-  const API_BASE_URL = process.env.API_URL || 'https://startrixbot.ru'; // Ensure consistency
+  const API_BASE_URL = process.env.API_URL || 'https://admin.spb-cosmetologist.ru'; // Ensure consistency
 
   let allServices: Service[] = [];
   try {
-    const apiUrl = process.env.API_URL || 'https://startrixbot.ru';
+    const apiUrl = process.env.API_URL || 'https://admin.spb-cosmetologist.ru';
     const response = await fetch(`${apiUrl}/api/uslugas?populate=*`, {
       next: { revalidate: 3600 },
     });

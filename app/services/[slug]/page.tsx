@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 import ContactForm from '@/components/feedback';
 import { ArrowLeftIcon, CheckCircleIcon, ClockIcon, ExclamationTriangleIcon, InformationCircleIcon, SparklesIcon, XCircleIcon } from '@heroicons/react/24/outline';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://startrixbot.ru';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://admin.spb-cosmetologist.ru';
 const API_TOKEN = process.env.STRAPI_API_TOKEN;
 
 export const revalidate = 600;
@@ -71,7 +71,7 @@ async function getServiceData(slug: string): Promise<any | null> {
       console.error('API Error:', response.status, response.statusText);
       throw new Error(`Не удалось загрузить данные услуги (Статус: ${response.status})`);
     }
-     // @ts-ignore
+    // @ts-ignore
 
     const data: SingleServiceApiResponse = await response.json();
 
@@ -243,26 +243,30 @@ export default async function Page({ params }: { params: any }) {
                       </tr>
                     </thead>
                     <tbody className="bg-white dark:bg-gray-800 divide-y divide-orange-200 dark:divide-orange-700">
-                     
-                      {service.price_list.map((
-                         // @ts-ignore
-                        item, index) => (
-                        <tr key={item.id || index} className={index % 2 === 0 ? 'bg-orange-50 dark:bg-orange-900/20' : 'bg-white dark:bg-gray-800'}>
-                          <td className="px-6 py-4 whitespace-normal">
-                            <div className="text-base font-medium text-gray-900 dark:text-white">{item.name || 'Услуга'}</div>
-                            {item.description && <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">{item.description}</div>}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-right">
-                            {item.unit && <div className="text-sm text-gray-500 dark:text-gray-400">{item.unit}</div>}
-                            {item.duration && (
-                              <div className="text-sm text-gray-500 dark:text-gray-400 flex items-center justify-end mt-1">
-                                <ClockIcon className="w-5 h-5 mr-1" />
-                                {item.duration}
-                              </div>
-                            )}
-                          </td>
-                        </tr>
-                      ))}
+                      {service.price_list.map(
+                        (
+                          // @ts-ignore
+                          item,
+                            // @ts-ignore
+                          index,
+                        ) => (
+                          <tr key={item.id || index} className={index % 2 === 0 ? 'bg-orange-50 dark:bg-orange-900/20' : 'bg-white dark:bg-gray-800'}>
+                            <td className="px-6 py-4 whitespace-normal">
+                              <div className="text-base font-medium text-gray-900 dark:text-white">{item.name || 'Услуга'}</div>
+                              {item.description && <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">{item.description}</div>}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-right">
+                              {item.unit && <div className="text-sm text-gray-500 dark:text-gray-400">{item.unit}</div>}
+                              {item.duration && (
+                                <div className="text-sm text-gray-500 dark:text-gray-400 flex items-center justify-end mt-1">
+                                  <ClockIcon className="w-5 h-5 mr-1" />
+                                  {item.duration}
+                                </div>
+                              )}
+                            </td>
+                          </tr>
+                        ),
+                      )}
                     </tbody>
                   </table>
                 </div>

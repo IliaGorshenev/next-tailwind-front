@@ -71,16 +71,16 @@ export function getImageUrl(imageData: ImageData | undefined, format: 'thumbnail
 
   // Try to get the requested format, fall back to original URL
   if (imageData.formats && imageData.formats[format]) {
-    return `https://startrixbot.ru${imageData.formats[format].url}`;
+    return `https://admin.spb-cosmetologist.ru${imageData.formats[format].url}`;
   }
 
   // Fall back to the original URL if the format doesn't exist
-  return `https://startrixbot.ru${imageData.url}`;
+  return `https://admin.spb-cosmetologist.ru${imageData.url}`;
 }
 
 async function getWorks() {
   try {
-    const response = await fetch('https://startrixbot.ru/api/works?populate=*', {
+    const response = await fetch('https://admin.spb-cosmetologist.ru/api/works?populate=*', {
       next: { revalidate: 3600 }, // Revalidate every hour
     });
 

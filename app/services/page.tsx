@@ -7,7 +7,7 @@ import { ServiceCatalogItem } from '@/components/service-catalog-item';
 // import { ServicesPagination } from '@/components/ServicesPagination'; // Keep if you have this client component
 
 // --- Environment Variables ---
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://startrixbot.ru';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://admin.spb-cosmetologist.ru';
 const API_TOKEN = process.env.STRAPI_API_TOKEN;
 
 // --- ISR Revalidation ---
@@ -132,7 +132,7 @@ export default async function ServicesPage() {
 
             {/* Catalog View Section - USE CLIENT COMPONENT */}
             <section className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 md:p-8 shadow-sm bg-white dark:bg-gray-800">
-            <h2 className="text-2xl font-bold mb-8 text-gray-800 center dark:text-white">Каталог услуг</h2>
+              <h2 className="text-2xl font-bold mb-8 text-gray-800 center dark:text-white">Каталог услуг</h2>
               <div className="space-y-8">
                 {groupedServices.map((group) => (
                   <div key={group.letter}>
