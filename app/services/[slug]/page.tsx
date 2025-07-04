@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 // Import icons
 import ContactForm from '@/components/feedback';
 import { ArrowLeftIcon, CheckCircleIcon, ClockIcon, ExclamationTriangleIcon, InformationCircleIcon, SparklesIcon, XCircleIcon } from '@heroicons/react/24/outline';
+import { AnimatedInfoCard } from '@/components/animated-info-card';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://admin.spb-cosmetologist.ru';
 const API_TOKEN = process.env.STRAPI_API_TOKEN;
@@ -124,16 +125,9 @@ export default async function Page({ params }: { params: any }) {
   return (
     <>
       <div className="min-h-screen bg-gray-50 flex flex-col gap-8 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-        {/* Можно добавить общий Header/Navbar */}
-
         <article className="container mx-auto px-4 py-8 md:py-16">
-          {/* Заголовок */}
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-center text-primary-700 dark:text-primary-300">{service.title}</h1>
-          {/* Основное изображение */}
-          {/* Основное изображение */}
-          {/* Основное изображение и описание в двухколоночном макете */}
           <div className="flex flex-col md:flex-row gap-8 mb-10 md:mb-14">
-            {/* Основное изображение (левая колонка) */}
             {mainImageUrl && (
               <div className="md:w-1/3 flex-shrink-0">
                 <div className="relative aspect-square w-full overflow-hidden rounded-lg shadow-lg">
@@ -149,8 +143,6 @@ export default async function Page({ params }: { params: any }) {
                 </div>
               </div>
             )}
-
-            {/* Описание (правая колонка) */}
             {service.description && (
               <div className="md:w-2/3">
                 <section className="h-full prose prose-lg dark:prose-invert max-w-none bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md">
@@ -165,35 +157,42 @@ export default async function Page({ params }: { params: any }) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 mb-10 md:mb-14">
             {/* Показания */}
             {service.indications && service.indications.length > 0 && (
-              <section className="bg-orange-50 dark:bg-orange-900/30 p-8 rounded-xl shadow-md border border-orange-200 dark:border-orange-800 h-full">
-                <h3 className="text-xl font-semibold mb-6 text-orange-800 dark:text-orange-300 flex items-center">
-                  <CheckCircleIcon className="w-7 h-7 mr-3 text-orange-600 dark:text-orange-400" />
-                  Показания
-                </h3>
-                <RichTextRenderer content={service.indications} className="text-base text-gray-700 dark:text-gray-300 space-y-2" />
-              </section>
+              <AnimatedInfoCard
+                title="Показания"
+                content={service.indications}
+                icon={<CheckCircleIcon className="w-7 h-7" />}
+                bgColor="bg-orange-50 dark:bg-orange-900/30"
+                borderColor="border-orange-200 dark:border-orange-800"
+                textColor="text-orange-800 dark:text-orange-300"
+                iconColor="text-orange-600 dark:text-orange-400"
+              />
             )}
 
             {/* Эффект */}
+            {/* Эффект */}
             {service.effect_description && service.effect_description.length > 0 && (
-              <section className="bg-orange-50 dark:bg-orange-900/30 p-8 rounded-xl shadow-md border border-orange-200 dark:border-orange-800 h-full">
-                <h3 className="text-xl font-semibold mb-6 text-orange-800 dark:text-orange-300 flex items-center">
-                  <SparklesIcon className="w-7 h-7 mr-3 text-orange-600 dark:text-orange-400" />
-                  Эффект
-                </h3>
-                <RichTextRenderer content={service.effect_description} className="text-base text-gray-700 dark:text-gray-300 space-y-2" />
-              </section>
+              <AnimatedInfoCard
+                title="Эффект"
+                content={service.effect_description}
+                icon={<SparklesIcon className="w-7 h-7" />}
+                bgColor="bg-green-50 dark:bg-green-900/30"
+                borderColor="border-green-200 dark:border-green-800"
+                textColor="text-green-800 dark:text-green-300"
+                iconColor="text-green-600 dark:text-green-400"
+              />
             )}
 
             {/* Противопоказания */}
             {service.contraindications && service.contraindications.length > 0 && (
-              <section className="bg-orange-50 dark:bg-orange-900/30 p-8 rounded-xl shadow-md border border-orange-200 dark:border-orange-800 h-full">
-                <h3 className="text-xl font-semibold mb-6 text-orange-800 dark:text-orange-300 flex items-center">
-                  <XCircleIcon className="w-7 h-7 mr-3 text-orange-600 dark:text-orange-400" />
-                  Противопоказания
-                </h3>
-                <RichTextRenderer content={service.contraindications} className="text-base text-gray-700 dark:text-gray-300 space-y-2" />
-              </section>
+              <AnimatedInfoCard
+                title="Противопоказания"
+                content={service.contraindications}
+                icon={<XCircleIcon className="w-7 h-7" />}
+                bgColor="bg-red-50 dark:bg-red-900/30"
+                borderColor="border-red-200 dark:border-red-800"
+                textColor="text-red-800 dark:text-red-300"
+                iconColor="text-red-600 dark:text-red-400"
+              />
             )}
           </div>
 
@@ -246,7 +245,7 @@ export default async function Page({ params }: { params: any }) {
                         (
                           // @ts-ignore
                           item,
-                            // @ts-ignore
+                          // @ts-ignore
                           index,
                         ) => (
                           <tr key={item.id || index} className={index % 2 === 0 ? 'bg-orange-50 dark:bg-orange-900/20' : 'bg-white dark:bg-gray-800'}>
