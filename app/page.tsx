@@ -7,6 +7,8 @@ import { subtitle, title } from '@/components/primitives'; // Keep custom primit
 import Works from '@/components/works';
 import { Service } from './state/services';
 import { ServicesInitializer } from './state/services-initializer';
+import ServicesCarousel from '@/components/services-swiper';
+import HeroSection from '@/components/hero-section';
 
 // This function gets called at build time and also on revalidation (Copied from old code)
 async function getFeaturedServices(): Promise<{
@@ -83,7 +85,7 @@ async function getFeaturedServices(): Promise<{
     );
 
     // Limit to 3 services for the featured section
-    return { services: services.slice(0, 3), error: null };
+    return { services: services, error: null };
   } catch (error) {
     console.error('Error fetching services:', error);
     // Provide more context on the type of error if possible
@@ -140,84 +142,9 @@ export default async function Home() {
     <>
       {/* About Me Section */}
       <ServicesInitializer initialServices={allServices} />
+      <HeroSection />
       {/* <section className="py-16 md:py-20 bg-gradient-to-r from-orange-50/80 to-white text-content1-foreground border-l border-r border-orange-100 dark:border-l-0 dark:border-r-0 dark:bg-gradient-to-r dark:from-gray-700/90 dark:to-gray-800 rounded-lg shadow-md"> */}
-      <section className="py-16 md:py-20 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-orange-50 via-orange-50/70 to-white text-content1-foreground dark:border-none dark:bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] dark:from-gray-900 dark:via-gray-950 dark:to-gray-1000 rounded-lg">
-        <div className="container mx-auto px-4 text-center">
-          <h1
-            className={title({
-              size: 'lg',
-              class: 'mb-4 text-gray-900 dark:text-white animate-fade-in',
-            })}
-            style={{
-              opacity: 0,
-              animation: 'fadeIn 0.8s ease-out forwards',
-            }}>
-            Добро пожаловать!
-          </h1>
-          <div className="max-w-3xl mx-auto flex flex-col items-center">
-            {/* Profile Picture with animation */}
-            <div
-              className="mb-6 animate-fade-in-up"
-              style={{
-                opacity: 0,
-                animation: 'fadeInUp 0.8s ease-out forwards',
-                animationDelay: '0.2s',
-              }}>
-              <Image
-                priority // Load profile picture early
-                alt="Фото косметолога Ольга" // *** REPLACE with your name ***
-                className="rounded-full object-cover shadow-lg border-4 border-white dark:border-gray-700 hover:scale-105 transition-transform duration-300"
-                height={180}
-                src="/olga.jpg" // *** REPLACE with your actual profile picture path ***
-                width={180}
-              />
-            </div>
-
-            <h2
-              className={subtitle({
-                class: 'text-xl md:text-2xl mb-6 text-gray-700 dark:text-gray-300',
-              })}
-              style={{
-                opacity: 0,
-                animation: 'fadeInUp 0.8s ease-out forwards',
-                animationDelay: '0.4s',
-              }}>
-              Меня зовут <span className="font-semibold text-primary">Ольга</span>, ваш эксперт-косметолог
-            </h2>
-            <p
-              className="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed"
-              style={{
-                opacity: 0,
-                animation: 'fadeInUp 0.8s ease-out forwards',
-                animationDelay: '0.6s',
-              }}>
-              Я посвятила свою карьеру искусству и науке ухода за кожей. Моя миссия — помочь вам обрести здоровую, сияющую кожу и повысить вашу уверенность в себе с
-              помощью персонализированных процедур и профессиональных советов. Имея <span className="font-medium">5</span> лет опыта {/* *** REPLACE [X] *** */} и страсть
-              к постоянному обучению, я предлагаю самые современные и эффективные решения для ваших нужд.
-            </p>
-            {/* Optional: Call to action button with animation */}
-            <div
-              className="mt-8"
-              style={{
-                opacity: 0,
-                animation: 'fadeInUp 0.8s ease-out forwards',
-                animationDelay: '0.8s',
-              }}>
-              <Link
-                className={buttonStyles({
-                  color: 'primary',
-                  radius: 'full',
-                  variant: 'shadow',
-                  size: 'lg',
-                })}
-                href="/contact" // *** Link to your contact page ***
-              >
-                Записаться на консультацию
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      
       {/* My Philosophy/Approach Section */}
 
       <section className="py-16 md:py-20 text-content1-foreground dark:border-none dark:bg-gradient-to-br dark:from-gray-950 dark:via-gray-950 dark:to-gray-900 rounded-lg">
@@ -312,7 +239,6 @@ export default async function Home() {
       {/* Featured Services Section (Kept from original) */}
       <section className="py-16 md:py-20 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-orange-50 via-orange-50/70 to-white text-content1-foreground dark:border-none dark:bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))]  dark:from-gray-900 dark:via-gray-950 dark:to-gray-1000  rounded-lg">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-10 text-gray-900 dark:text-white">Популярные услуги</h2>
           {error ? (
             <div className="text-center text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-700 p-4 rounded-md max-w-md mx-auto">
               <p>Ошибка загрузки услуг: {error}</p>
@@ -322,63 +248,10 @@ export default async function Home() {
               <p className="text-gray-500 dark:text-gray-400">Услуги не найдены.</p>
             </div>
           ) : (
-            // Grid for services
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {services.map((service, index) => {
-                const imageUrl = service.image?.[0]?.formats?.medium?.url || service.image?.[0]?.url;
-                const fullImageUrl = imageUrl ? (imageUrl.startsWith('http') ? imageUrl : `${API_BASE_URL}${imageUrl}`) : '/images/placeholder-service.png'; // Fallback service image
-
-                return (
-                  <div
-                    key={service.id}
-                    className="bg-white dark:bg-gray-900 shadow-lg rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl border border-transparent dark:border-gray-700/50 flex flex-col">
-                    {imageUrl ? (
-                      <div className="relative h-48 w-full">
-                        <Image
-                          fill
-                          alt={service.title || 'Изображение услуги'}
-                          className="object-cover"
-                          priority={index < 3} // Prioritize loading images for the first few cards
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          src={fullImageUrl}
-                        />
-                      </div>
-                    ) : (
-                      // Optional: Placeholder if no image URL at all
-                      <div className="relative h-48 w-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-                        <span className="text-gray-500 dark:text-gray-400 text-sm">Нет изображения</span>
-                      </div>
-                    )}
-                    <div className="p-6 flex flex-col flex-grow">
-                      {' '}
-                      {/* Use flex-grow to push button down */}
-                      <h3 className="text-xl font-semibold mb-2 text-gray-800 dark:text-white">{service.title}</h3>
-                      <p className="text-gray-600 dark:text-gray-400 mb-4 text-sm flex-grow">
-                        {' '}
-                        {/* Use flex-grow here too */}
-                        {service.description}
-                      </p>
-                      <div className="mt-auto">
-                        {' '}
-                        {/* Pushes button to the bottom */}
-                        <Link
-                          className={buttonStyles({
-                            color: 'primary',
-                            variant: 'solid',
-                            size: 'sm',
-                            radius: 'md',
-                          })}
-                          href={`/services/${service.slug}`} // Make sure this route exists
-                        >
-                          Подробнее
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+            // Replace the grid with the ServicesCarousel component
+            <ServicesCarousel services={services} apiBaseUrl={API_BASE_URL} />
           )}
+
           {/* Link to all services */}
           {!error && services.length > 0 && (
             <div className="text-center mt-12">
@@ -389,8 +262,7 @@ export default async function Home() {
                   radius: 'full',
                   size: 'lg',
                 })}
-                href="/services" // Make sure this route exists
-              >
+                href="/services">
                 Смотреть все услуги
               </Link>
             </div>

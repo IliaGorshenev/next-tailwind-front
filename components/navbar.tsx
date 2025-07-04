@@ -9,7 +9,7 @@ import clsx from 'clsx';
 import { useAtom, useAtomValue } from 'jotai';
 import NextLink from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-
+import Image from 'next/image';
 // Import Jotai atoms
 
 // Assuming siteConfig and icons are correctly imported
@@ -112,8 +112,9 @@ export const Navbar = () => {
         {/* Brand Logo and Name */}
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
-            <Logo />
-            <p className="font-bold text-inherit">ACME</p>
+            {/* <Logo /> */}
+            <Image src="/olga-logo.png" alt="Olga Logo" width={82} height={82} className="rounded-full" />
+            {/* <p className="font-bold text-inherit">Olga Cosmetics</p> */}
           </NextLink>
         </NavbarBrand>
         {/* Desktop Navigation Links */}

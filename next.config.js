@@ -17,13 +17,19 @@ const nextConfig = {
         port: '', // Пусто, если стандартный порт (80 или 443)
         pathname: '/uploads/**',
       },
-      // Можете добавить сюда другие домены, если нужно
-      // {
-      //   protocol: 'https',
-      //   hostname: 'example.com',
-      //   port: '', // Пусто, если стандартный порт (80 или 443)
-      //   pathname: '/images/**',
-      // },
+        {
+        protocol: 'https',
+        hostname: 'admin.spb-cosmetologist.ru',
+        port: '', // Пусто, если стандартный порт (80 или 443)
+        pathname: '/uploads/**',
+      },
+      {
+        protocol: 'http',
+        hostname: 'admin.spb-cosmetologist.ru',
+        port: '', // Пусто, если стандартный порт (80 или 443)
+        pathname: '/uploads/**',
+      },
+
     ],
   },
 };
