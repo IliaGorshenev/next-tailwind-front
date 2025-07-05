@@ -243,7 +243,6 @@ export default function WorksPage() {
           })}
         </div>
       </main>
-      <Footer />
     </>
   );
 }

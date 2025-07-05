@@ -8,6 +8,7 @@ import { fontSans } from '@/config/fonts';
 import { siteConfig } from '@/config/site';
 import './globals.css';
 import { Providers } from './providers';
+import ScrollingSculptures from '@/components/scrolling-sculpture';
 
 export const metadata: Metadata = {
   title: {
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   icons: {
-    icon: '/favicon.ico',
+    icon: '/favicon/favicon.ico',
   },
 };
 
@@ -41,5 +42,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </Providers>
       </body>
     </html>
+    //  <html suppressHydrationWarning lang="en">
+    //   <head />
+    //   <body className={clsx('min-h-screen bg-background font-sans antialiased', fontSans.variable)}>
+    //     <Providers themeProps={{ attribute: 'class', defaultTheme: 'light' }}>
+    //       <div className="relative flex flex-col h-screen">
+    //         <Navbar />
+    //         <div className="relative flex-grow">
+    //           {/* <ScrollingSculptures /> */}
+    //           <main className="container mx-auto max-w-7xl pt-16 px-6 relative z-10">{children}</main>
+    //         </div>
+    //         <Footer />
+    //       </div>
+    //     </Providers>
+    //   </body>
+    // </html>
   );
 }

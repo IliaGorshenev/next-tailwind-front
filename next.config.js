@@ -17,7 +17,7 @@ const nextConfig = {
         port: '', // Пусто, если стандартный порт (80 или 443)
         pathname: '/uploads/**',
       },
-        {
+      {
         protocol: 'https',
         hostname: 'admin.spb-cosmetologist.ru',
         port: '', // Пусто, если стандартный порт (80 или 443)
@@ -29,7 +29,12 @@ const nextConfig = {
         port: '', // Пусто, если стандартный порт (80 или 443)
         pathname: '/uploads/**',
       },
-
+      {
+        protocol: 'https', // Changed from 'http' to 'https'
+        hostname: 'images.unsplash.com',
+        port: '', // Пусто, если стандартный порт (80 или 443)
+        pathname: '**',
+      },
     ],
   },
 };

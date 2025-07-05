@@ -9,6 +9,7 @@ import { Service } from './state/services';
 import { ServicesInitializer } from './state/services-initializer';
 import ServicesCarousel from '@/components/services-swiper';
 import HeroSection from '@/components/hero-section';
+import PhilosophySection from '@/components/philosophy-section';
 
 // This function gets called at build time and also on revalidation (Copied from old code)
 async function getFeaturedServices(): Promise<{
@@ -144,100 +145,13 @@ export default async function Home() {
       <ServicesInitializer initialServices={allServices} />
       <HeroSection />
       {/* <section className="py-16 md:py-20 bg-gradient-to-r from-orange-50/80 to-white text-content1-foreground border-l border-r border-orange-100 dark:border-l-0 dark:border-r-0 dark:bg-gradient-to-r dark:from-gray-700/90 dark:to-gray-800 rounded-lg shadow-md"> */}
-      
+
       {/* My Philosophy/Approach Section */}
 
-      <section className="py-16 md:py-20 text-content1-foreground dark:border-none dark:bg-gradient-to-br dark:from-gray-950 dark:via-gray-950 dark:to-gray-900 rounded-lg">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-10 text-gray-900 dark:text-white">Мой подход к красоте</h2>
-
-          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-            {/* Left side video instead of image */}
-            <div
-              className="w-full md:w-1/2 relative animate-fade-in-left"
-              style={{
-                opacity: 0,
-                animation: 'fadeInLeft 0.8s ease-out forwards',
-                animationDelay: '0.2s',
-              }}>
-              <div className="relative h-80 md:h-[500px] w-full rounded-lg overflow-hidden shadow-lg">
-                <video
-                  src="/olga_action.mp4"
-                  className="absolute inset-0 w-full h-full object-cover"
-                  style={{ objectPosition: '50% 20%' }}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                />
-              </div>
-            </div>
-
-            {/* Right side text content */}
-            <div
-              className="w-full md:w-1/2 animate-fade-in-right"
-              style={{
-                opacity: 0,
-                animation: 'fadeInRight 0.8s ease-out forwards',
-                animationDelay: '0.4s',
-              }}>
-              <div className="text-left">
-                <h3 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-white">Индивидуальный подход к каждому клиенту</h3>
-                <p className="text-lg text-gray-600 dark:text-gray-400 mb-6">
-                  Я верю, что истинная красота идет изнутри и отражается в здоровье вашей кожи. Моя философия основана на целостном подходе, сочетании передовых
-                  технологий с проверенными методиками и качественными продуктами.
-                </p>
-                <p className="text-lg text-gray-600 dark:text-gray-400">
-                  Каждая процедура подбирается индивидуально, учитывая ваши уникальные особенности и цели. Я стремлюсь не только решить текущие проблемы, но и
-                  предотвратить появление новых.
-                </p>
-
-                {/* Key principles with icons */}
-                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div
-                    className="flex items-start space-x-3 animate-fade-up"
-                    style={{
-                      opacity: 0,
-                      animation: 'fadeUp 0.6s ease-out forwards',
-                      animationDelay: '0.6s',
-                    }}>
-                    <div className="text-primary dark:text-primary-400 mt-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-gray-800 dark:text-white">Безопасность</h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Использую только проверенные методики и сертифицированные продукты</p>
-                    </div>
-                  </div>
-
-                  <div
-                    className="flex items-start space-x-3 animate-fade-up"
-                    style={{
-                      opacity: 0,
-                      animation: 'fadeUp 0.6s ease-out forwards',
-                      animationDelay: '0.8s',
-                    }}>
-                    <div className="text-primary dark:text-primary-400 mt-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-gray-800 dark:text-white">Эффективность</h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Гарантирую видимый результат после каждой процедуры</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      <PhilosophySection />
       {/* Featured Services Section (Kept from original) */}
       <section className="py-16 md:py-20 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-orange-50 via-orange-50/70 to-white text-content1-foreground dark:border-none dark:bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))]  dark:from-gray-900 dark:via-gray-950 dark:to-gray-1000  rounded-lg">
+      
         <div className="container mx-auto px-4">
           {error ? (
             <div className="text-center text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-700 p-4 rounded-md max-w-md mx-auto">

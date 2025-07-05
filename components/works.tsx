@@ -6,6 +6,7 @@ import BeforeAfterSlider from './work-divider';
 import { Navigation } from 'swiper/modules';
 import { useEffect, useRef, useState } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
+import { button as buttonStyles } from '@heroui/theme';
 import Link from 'next/link';
 export interface ImageFormat {
   name: string;
@@ -211,7 +212,6 @@ export default function Works() {
           </button>
         </div>
       </div>
-
       <div className="w-full">
         <Swiper
           onSwiper={(swiper) => {
@@ -220,6 +220,7 @@ export default function Works() {
           spaceBetween={20}
           slidesPerView={1}
           modules={[Navigation]}
+          allowTouchMove={false}
           breakpoints={{
             640: {
               slidesPerView: 1,
@@ -234,7 +235,7 @@ export default function Works() {
               spaceBetween: 30,
             },
           }}
-          className="mySwiper">
+          className="mySwiper ">
           {works.map((work) => {
             // Get the first two photos for before/after if available
             const beforeMedia = work.photos && work.photos.length > 0 ? work.photos[0] : undefined;
@@ -261,7 +262,7 @@ export default function Works() {
 
             return (
               <SwiperSlide key={work.id}>
-                <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl border border-transparent dark:border-gray-700/50 flex flex-col h-full">
+                <div className="bg-white my-2 h-fulll dark:bg-gray-900 rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl border border-transparent dark:border-gray-700/50 flex flex-col h-full ">
                   <h3 className="text-xl font-bold text-gray-800 dark:text-white p-4 text-left">{work.title}</h3>
 
                   {/* Before/After slider for images */}
@@ -304,9 +305,9 @@ export default function Works() {
                     </div>
                   )}
 
-                  <div className="p-4 flex-1">
-                    <p className="text-gray-600 dark:text-gray-300">{work.description}</p>
-                    {work.additional_description && <p className="italic text-gray-500 dark:text-gray-400 mt-4">{work.additional_description}</p>}
+                  <div className="p-4 min-h-[100px] flex-1">
+                    <p className="text-gray-600 dark:text-gray-300 overflow-hidden text-ellipsis whitespace-nowrap">{work.description}</p>
+                    <p className="italic text-gray-500 dark:text-gray-400 mt-4 overflow-hidden text-ellipsis whitespace-nowrap">{work?.additional_description || ' '}</p>
                   </div>
                 </div>
               </SwiperSlide>
@@ -317,7 +318,12 @@ export default function Works() {
       <div className="text-center mt-12">
         <Link
           href="/works"
-          className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-200">
+          className={buttonStyles({
+            color: 'primary',
+            variant: 'solid',
+            radius: 'md',
+            size: 'lg',
+          })}>
           Смотреть все работы
         </Link>
       </div>

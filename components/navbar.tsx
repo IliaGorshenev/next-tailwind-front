@@ -113,7 +113,7 @@ export const Navbar = () => {
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
             {/* <Logo /> */}
-            <Image src="/olga-logo.png" alt="Olga Logo" width={82} height={82} className="rounded-full" />
+            {/* <Image src="/olga-logo.png" alt="Olga Logo" width={82} height={82} className="rounded-full" /> */}
             {/* <p className="font-bold text-inherit">Olga Cosmetics</p> */}
           </NextLink>
         </NavbarBrand>
@@ -139,7 +139,7 @@ export const Navbar = () => {
           <Link isExternal aria-label="Telegram" href={siteConfig.links.telegram || 'https://t.me/your_username'}>
             <TelegramIcon className="text-default-500" />
           </Link>
-          <ThemeSwitch />
+          {/* <ThemeSwitch /> */}
         </NavbarItem>
         {/* Search Input (visible on large screens) */}
         <NavbarItem className="hidden lg:flex w-64">{searchInput}</NavbarItem>
@@ -159,7 +159,7 @@ export const Navbar = () => {
 
       {/* Mobile Right section: Theme switch, Menu toggle */}
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        <ThemeSwitch />
+        {/* <ThemeSwitch /> */}
         <NavbarMenuToggle />
       </NavbarContent>
 
