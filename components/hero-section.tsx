@@ -65,7 +65,7 @@ export default function HeroSection() {
               {/* w-20 h-28 md:w-28 md:h-40 lg:w-332 lg:h-444" */}
               <div className="relative z-[5]">
                 <div
-                  className="absolute top-[-270] left-[-160] md:left-[-80] lg:left-[-160]"
+                  className="absolute top-[-270px] left-[-160px] md:left-[-80px] lg:left-[-160px]"
                   style={{
                     transform: `rotate(${-14 + scrollY * 0.05}deg) translateX(${-sectionScrollOffset * 0.05}px) translateY(${sectionScrollOffset * 0.03}px)`,
                     opacity: opacity,
@@ -74,7 +74,7 @@ export default function HeroSection() {
                   <Image src="/sculptures/8.png" alt="Decorative sculpture" className="object-cover rounded-lg" width={390} height={390} />
                 </div>
                 <div
-                  className="absolute top-[-240] left-[220] hidden lg:block"
+                  className="absolute top-[-240px] left-[220px] hidden lg:block"
                   style={{
                     transform: `rotate(${18 - scrollY * 0.05}deg) translateX(${sectionScrollOffset * 0.06}px) translateY(${sectionScrollOffset * 0.04}px)`,
                     opacity: opacity,
